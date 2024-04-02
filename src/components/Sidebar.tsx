@@ -6,7 +6,11 @@ import SidebarItems from './SidebarItems';
 export default function Sidebar() {
   return (
     <nav className="h-full">
-      <Card className="h-screen fixed left-0 rounded-none p-6" style={{ width: STYLE_VARIABLE.SIZE.SIDEBAR_WIDTH }}>
+      <Card
+        className="h-screen fixed left-0 rounded-none p-6 shadow-md border-r border-slate-50/10 "
+        isBlurred
+        style={{ width: STYLE_VARIABLE.SIZE.SIDEBAR_WIDTH }}
+      >
         <h3 className="uppercase">Dashboard</h3>
         <div className="mt-4 w-full grid">
           {navbarDataMenu.map((Item, i) => (
