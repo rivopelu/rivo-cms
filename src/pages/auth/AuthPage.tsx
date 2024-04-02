@@ -1,7 +1,9 @@
 import { Button } from '@nextui-org/react';
 import { ASSETS } from '../../constants/assets';
+import useAuthPage from './useAuthPage';
 
 export default function AuthPage() {
+  const page = useAuthPage();
   function googleIcon() {
     return <img style={{ height: 20, width: 20 }} src={ASSETS.ICON.IC_GOOGLE} alt="google icon" />;
   }
@@ -12,7 +14,7 @@ export default function AuthPage() {
         <div className="text-center">
           <h1 className="font-semibold text-5xl">Hello Rivo Pelu</h1>
           <div className="text-2xl mt-3">Welcome to admin dashboard</div>
-          <Button className="w-full mt-10" startContent={googleIcon()}>
+          <Button onPress={() => page.onLoginGoogle()} className="w-full mt-10" startContent={googleIcon()}>
             Sign In
           </Button>
         </div>
