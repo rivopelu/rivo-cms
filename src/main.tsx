@@ -5,12 +5,15 @@ import './styles/index.scss';
 import { NextUIProvider } from '@nextui-org/react';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { ENV } from './constants/env.ts';
+import { BrowserRouter, useNavigate } from 'react-router-dom';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <NextUIProvider>
+    <NextUIProvider navigate={useNavigate}>
       <GoogleOAuthProvider clientId={ENV.GOOGLE_CLIENT_ID}>
-        <App />
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
       </GoogleOAuthProvider>
     </NextUIProvider>
   </React.StrictMode>,
