@@ -4,6 +4,7 @@ import { ChangeEventHandler, HTMLInputTypeAttribute } from 'react';
 export function InputText(props: IProps) {
   return (
     <Input
+      className={'bg-default'}
       name={props.name}
       id={props.name}
       color={props.errorMessage ? 'danger' : 'default'}
