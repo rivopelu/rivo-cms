@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 export default function PageHeader(props: IProps) {
   return (
-    <div className="w-full flex justify-between">
+    <div className="w-full capitalize flex justify-between">
       <div>
         <h1>{props.title}</h1>
         {props.breadcrumbs && (
