@@ -1,11 +1,15 @@
-import { Button, Image, Tooltip } from '@nextui-org/react';
+import { Button, Image, ModalBody, ModalFooter, Tooltip } from '@nextui-org/react';
 import PageHeader, { IBreadcrumbsData } from '../../components/PageHeader';
 import { ROUTES } from '../../routes/routes';
-import { useBrandPage } from './useBrandPage.tsx';
+import { useBrandPage } from './useBrandPage.ts';
 import { IResListBrand } from '../../models/response/IResListBrand.ts';
 import { IoIosInformationCircleOutline } from 'react-icons/io';
 import { Link } from 'react-router-dom';
 import { ITableColumnData, MainTable } from '../../components/MainTable.tsx';
+import ModalPopup from '../../components/ModalPopup.tsx';
+import UploadBox from '../../components/UploadBox.tsx';
+import { InputText } from '../../components/InputText.tsx';
+import { InputTextArea } from '../../components/InputTextarea.tsx';
 
 export default function BrandPage() {
   const page = useBrandPage();
@@ -22,6 +26,7 @@ export default function BrandPage() {
       title: 'Brand',
     },
   ];
+  const formik = page.formik;
 
   const table: ITableColumnData[] = [
     {
@@ -65,10 +70,59 @@ export default function BrandPage() {
       </div>
     );
   }
+
+  function modalContent() {
+    return (
+      <>
+        <ModalBody className="border-b-slate-300/10 border-b">
+          <div className="grid gap-5 my-10">
+            <UploadBox onChange={(e) => formik.setFieldValue('logo', e)} value={formik.values.logo} />
+            <InputText
+              label="name"
+              placeholder="insert name"
+              name="name"
+              required
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              errorMessage={formik.touched.name && formik.errors.name}
+            />
+            <InputText
+              label="url"
+              placeholder="insert url"
+              name="url"
+              required
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              errorMessage={formik.touched.url && formik.errors.url}
+            />
+            <InputTextArea
+              label="description"
+              placeholder="insert description"
+              name="description"
+              required
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              errorMessage={formik.touched.description && formik.errors.description}
+            />
+          </div>
+        </ModalBody>
+        <ModalFooter>
+          <Button onClick={page.onClosePopup} variant="bordered">
+            Cancel
+          </Button>
+          <Button variant={'faded'} isLoading={page.loadingCreated} onClick={() => formik.handleSubmit()}>
+            Submit
+          </Button>
+        </ModalFooter>
+      </>
+    );
+  }
+
   return (
     <div className="w-full grid gap-7">
+      <ModalPopup body={modalContent()} onClose={page.onClosePopup} title={'Add new brand'} open={page.showModalBody} />
       <PageHeader title="Brand List" breadcrumbs={breadCrumb}>
-        <Button>Create Brand</Button>
+        <Button onPress={() => page.setShowModalBody(true)}>Create Brand</Button>
       </PageHeader>
       <MainTable hideHeader data={page.listBrand} columns={table} />
     </div>
