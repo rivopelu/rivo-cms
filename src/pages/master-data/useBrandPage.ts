@@ -43,6 +43,7 @@ export function useBrandPage() {
           setLoadingCreated(false);
           setShowModalBody(false);
           formik.resetForm();
+          dispatch(masterDataActions.getDataBrand());
         })
         .catch((e) => {
           console.error(e);
