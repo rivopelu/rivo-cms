@@ -13,6 +13,7 @@ export function InputText(props: IProps) {
       isInvalid={!!props.errorMessage}
       required={props.required}
       labelPlacement={'outside'}
+      value={props.value}
       variant={'bordered'}
       label={props.label}
       placeholder={props.placeholder}
@@ -30,4 +31,5 @@ interface IProps {
   name?: string;
   errorMessage?: any;
   type?: HTMLInputTypeAttribute;
+  value?: string;
 }

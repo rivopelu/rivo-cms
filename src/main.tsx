@@ -1,13 +1,14 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App.tsx';
-import './styles/index.scss';
 import { NextUIProvider } from '@nextui-org/react';
 import { GoogleOAuthProvider } from '@react-oauth/google';
-import { ENV } from './constants/env.ts';
-import { BrowserRouter, useNavigate } from 'react-router-dom';
+import React from 'react';
+import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
+import { BrowserRouter, useNavigate } from 'react-router-dom';
+import 'react-toastify/dist/ReactToastify.css';
+import App from './App.tsx';
+import { ENV } from './constants/env.ts';
 import storeRedux from './redux/store.ts';
+import './styles/index.scss';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
