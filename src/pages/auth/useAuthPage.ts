@@ -11,21 +11,19 @@ export default function useAuthPage() {
   const httpService = new HttpService();
   const authService = new AuthServices();
 
-  const navigate = useNavigate()
-
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if( authService.authCheck !== undefined) {
-        navigate(ROUTES.HOME())
-    } 
-  }, [])
-  
-  
+    if (!authService.authCheck) {
+      navigate(ROUTES.HOME());
+    }
+  }, []);
+
   const onLoginGoogle = useGoogleLogin({
     onSuccess: (codeResponse) => {
       console.log(codeResponse.access_token);
       httpService.POST(ENDPOINT.SIGN_IN(), { email: 'rivopelu12@gmail.com', password: 'rivopelu123' }).then((res: BaseResponse<any>) => {
-       authService.successLogin(res.data?.response_data?.token)
+        authService.successLogin(res.data?.response_data?.token);
       });
     },
     flow: 'implicit',

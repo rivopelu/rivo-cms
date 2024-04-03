@@ -10,7 +10,7 @@ export default function BasePage(props: IProps) {
     return (
       <div className="flex">
         <Sidebar />
-        <PageContainer className="mt-7">{props.children}</PageContainer>
+        <PageContainer className="mt-10">{props.children}</PageContainer>
       </div>
     );
   }
