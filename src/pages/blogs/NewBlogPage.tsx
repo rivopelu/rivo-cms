@@ -1,10 +1,13 @@
-import { BlockNoteEditor, BlockNoteSchema, defaultBlockSpecs, filterSuggestionItems, insertOrUpdateBlock } from '@blocknote/core';
+import { BlockNoteSchema, defaultBlockSpecs, filterSuggestionItems, insertOrUpdateBlock } from '@blocknote/core';
 import { BlockNoteView, SuggestionMenuController, getDefaultReactSlashMenuItems, useCreateBlockNote } from '@blocknote/react';
 import { Button } from '@nextui-org/react';
-import PageHeader from '../../components/PageHeader';
-import { Alert } from '../../components/Alert';
 import { RiAlertFill } from 'react-icons/ri';
+import { Alert } from '../../components/Alert';
+import PageHeader from '../../components/PageHeader';
 import SyntaxEditor from '../../components/SyntaxEditor';
+import CodeBlock from '../../components/CodeBlock';
+import { EditorCodeBlockPlugin } from '../../components/plugin/EditorCodeBlockPlugin';
+import { FaCode } from 'react-icons/fa';
 
 const schema = BlockNoteSchema.create({
   blockSpecs: {
@@ -12,6 +15,7 @@ const schema = BlockNoteSchema.create({
     ...defaultBlockSpecs,
     // Adds the Alert block.
     alert: Alert,
+    codeBlock: EditorCodeBlockPlugin,
   },
 });
 
@@ -26,6 +30,17 @@ const insertAlert = (editor: typeof schema.BlockNoteEditor) => ({
   aliases: ['alert', 'notification', 'emphasize', 'warning', 'error', 'info', 'success'],
   group: 'Other',
   icon: <RiAlertFill />,
+});
+
+const insertCodeBlock = (editor: typeof schema.BlockNoteEditor) => ({
+  title: 'Code Block',
+  onItemClick: () => {
+    insertOrUpdateBlock(editor, {
+      type: 'codeBlock',
+    });
+  },
+  group: 'Other',
+  icon: <FaCode />,
 });
 function NewBlogPage() {
   const editor = useCreateBlockNote({
@@ -57,6 +72,7 @@ function NewBlogPage() {
       <PageHeader title="Add new blogs">
         <Button onPress={() => onSubmit()}>SUBMIT</Button>
       </PageHeader>
+      <CodeBlock />
       <SyntaxEditor />
       <BlockNoteView editor={editor} slashMenu={false}>
         {/* Replaces the default Slash Menu. */}
@@ -64,7 +80,7 @@ function NewBlogPage() {
           triggerCharacter={'/'}
           getItems={async (query) =>
             // Gets all default slash menu items and `insertAlert` item.
-            filterSuggestionItems([...getDefaultReactSlashMenuItems(editor), insertAlert(editor)], query)
+            filterSuggestionItems([...getDefaultReactSlashMenuItems(editor), insertAlert(editor), insertCodeBlock(editor)], query)
           }
         />
       </BlockNoteView>
