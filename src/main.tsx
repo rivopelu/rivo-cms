@@ -1,3 +1,6 @@
+import '@blocknote/core/style.css';
+import '@blocknote/react/style.css';
+import '@blocknote/core/fonts/inter.css';
 import { NextUIProvider } from '@nextui-org/react';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import React from 'react';
