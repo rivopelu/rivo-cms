@@ -4,6 +4,7 @@ import { Button } from '@nextui-org/react';
 import PageHeader from '../../components/PageHeader';
 import { Alert } from '../../components/Alert';
 import { RiAlertFill } from 'react-icons/ri';
+import SyntaxEditor from '../../components/SyntaxEditor';
 
 const schema = BlockNoteSchema.create({
   blockSpecs: {
@@ -56,6 +57,7 @@ function NewBlogPage() {
       <PageHeader title="Add new blogs">
         <Button onPress={() => onSubmit()}>SUBMIT</Button>
       </PageHeader>
+      <SyntaxEditor />
       <BlockNoteView editor={editor} slashMenu={false}>
         {/* Replaces the default Slash Menu. */}
         <SuggestionMenuController
