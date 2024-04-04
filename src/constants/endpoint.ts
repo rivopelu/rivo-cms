@@ -6,4 +6,8 @@ export const ENDPOINT = {
     LIST_CATEGOEIS: () => `/master-data/category/list`,
     CREATE_CATEGORY: () => `/master-data/category/new`,
   },
+  BLOG: {
+    LIST_ALL: () => `/blog/v1/list/all`,
+    DETAIL: (slug: string) => `/blog/v1/detail/${slug}`,
+  },
 };

@@ -1,5 +1,7 @@
-import { MasterDataSlice } from "./reducers/master-data.slice";
+import { BlogSlice } from './reducers/blog.slice';
+import { MasterDataSlice } from './reducers/master-data.slice';
 
 export const combineReducers = {
-    masterData : MasterDataSlice.reducer
-}
+  masterData: MasterDataSlice.reducer,
+  blog: BlogSlice.reducer,
+};

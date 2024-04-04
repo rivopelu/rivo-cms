@@ -1,117 +1,52 @@
-import { BlockNoteEditor } from '@blocknote/core';
-import { BlockNoteView, useCreateBlockNote } from '@blocknote/react';
-import { Button } from '@nextui-org/react';
+import { Button, Image, Tooltip } from '@nextui-org/react';
 import { useNavigate } from 'react-router-dom';
 import PageHeader, { IBreadcrumbsData } from '../../components/PageHeader';
 import { ROUTES } from '../../routes/routes';
-import { useEffect } from 'react';
+import useBlogPage from './useBlogPage';
+import { ITableColumnData, MainTable } from '../../components/MainTable';
+import { IResListBLog } from '../../models/response/IResListBlog';
+import { IoIosInformationCircleOutline } from 'react-icons/io';
 
 export default function BlogPage() {
+  const page = useBlogPage();
   const navigate = useNavigate();
-  const editor: BlockNoteEditor | null = useCreateBlockNote();
 
-  const data: any[] = [
+  const tableColumn: ITableColumnData[] = [
     {
-      id: '361d52a4-a455-4749-8061-8b34044bb981',
-      type: 'heading',
-      props: {
-        textColor: 'default',
-        backgroundColor: 'default',
-        textAlignment: 'left',
-        level: 1,
-      },
-      content: [
-        {
-          type: 'text',
-          text: 'HELLO WORLD',
-          styles: {},
-        },
-      ],
-      children: [],
+      key: 'title',
+      headerTitle: 'Title',
+      layouts: uiTitle,
     },
     {
-      id: '9888a6d3-11bf-419e-9d1d-c0866f47a05c',
-      type: 'paragraph',
-      props: {
-        textColor: 'default',
-        backgroundColor: 'default',
-        textAlignment: 'left',
-      },
-      content: [
-        {
-          type: 'text',
-          text: 'apap kabar bare',
-          styles: {},
-        },
-      ],
-      children: [],
-    },
-    {
-      id: 'f0776c9c-f725-42f4-a12e-ab585b1996fc',
-      type: 'paragraph',
-      props: {
-        textColor: 'default',
-        backgroundColor: 'default',
-        textAlignment: 'left',
-      },
-      content: [],
-      children: [],
-    },
-    {
-      id: '7f2a3ab7-4b8f-457a-b4c6-ba806188fd37',
-      type: 'heading',
-      props: {
-        textColor: 'default',
-        backgroundColor: 'default',
-        textAlignment: 'left',
-        level: 1,
-      },
-      content: [
-        {
-          type: 'text',
-          text: 'HELLO WORLD',
-          styles: {},
-        },
-      ],
-      children: [],
-    },
-    {
-      id: '833860cf-6f30-45db-8cf4-c499a824422e',
-      type: 'paragraph',
-      props: {
-        textColor: 'default',
-        backgroundColor: 'default',
-        textAlignment: 'left',
-      },
-      content: [],
-      children: [],
+      key: 'actions',
+      headerTitle: 'Actions',
+      layouts: uiActions,
     },
   ];
-  const breadCrumb: IBreadcrumbsData[] = [
-    {
-      title: 'Home',
-      path: ROUTES.HOME(),
-    },
+  function uiActions(e: IResListBLog) {
+    return (
+      <Tooltip placement="bottom" color="default" content="detail">
+        <Button isIconOnly onPress={() => navigate(ROUTES.BLOG.DETAIL(e.slug))}>
+          <IoIosInformationCircleOutline />
+        </Button>
+      </Tooltip>
+    );
+  }
 
-    {
-      title: 'Blogs',
-    },
-  ];
-
-  useEffect(() => {
-    async function loadInitialHTML() {
-      if (editor) {
-        editor.replaceBlocks(editor.document, data);
-      }
-    }
-    loadInitialHTML();
-  }, [editor]);
+  function uiTitle(e: IResListBLog) {
+    return (
+      <div className="flex gap-6 items-center">
+        <Image isBlurred height={100} src={e.thumbnail_url} alt={e.title} className="rounded-none h-10 w-10" />
+        <h3 className="text-xl">{e.title}</h3>
+      </div>
+    );
+  }
   return (
-    <div>
-      <PageHeader title="blogs List" breadcrumbs={breadCrumb}>
+    <div className="grid gap-10">
+      <PageHeader title="blogs List" breadcrumbs={page.breadCrumb}>
         <Button onPress={() => navigate(ROUTES.BLOG.NEW_BLOG())}>Create New Blog</Button>
       </PageHeader>
-      <BlockNoteView editor={editor} editable={false} />
+      <MainTable hideHeader columns={tableColumn} data={page.dataList} />
     </div>
   );
 }

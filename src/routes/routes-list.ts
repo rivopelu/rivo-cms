@@ -1,6 +1,7 @@
 import { PAGE_TYPE_ENUM } from '../enums/PageTypeEnums';
 import AuthPage from '../pages/auth/AuthPage';
 import BlogPage from '../pages/blogs/BlogPage';
+import DetailBlogPage from '../pages/blogs/DetailBlogPage';
 import NewBlogPage from '../pages/blogs/NewBlogPage';
 import HomePage from '../pages/home/HomePage';
 import BrandPage from '../pages/master-data/BrandPage';
@@ -34,6 +35,11 @@ export const RouteList: IRoutesList[] = [
   {
     path: ROUTES.BLOG.NEW_BLOG(),
     element: NewBlogPage,
+    type: PAGE_TYPE_ENUM.PRIMARY,
+  },
+  {
+    path: ROUTES.BLOG.DETAIL(':slug'),
+    element: DetailBlogPage,
     type: PAGE_TYPE_ENUM.PRIMARY,
   },
 

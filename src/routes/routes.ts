@@ -4,6 +4,7 @@ export const ROUTES = {
   BLOG: {
     PAGE: () => `/blog`,
     NEW_BLOG: () => `/blog/new-blog`,
+    DETAIL: (slug: string) => `/blog/detail/${slug}`,
   },
   MASTER_DATA: {
     CATEGORIES: () => `/master-data/categories`,
