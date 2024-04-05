@@ -11,15 +11,15 @@ import {
 import { BlockNoteView, SuggestionMenuController, getDefaultReactSlashMenuItems, useCreateBlockNote } from '@blocknote/react';
 import { FaCode } from 'react-icons/fa';
 import { RiAlertFill } from 'react-icons/ri';
-import { Alert } from './Alert';
 import { EditorCodeBlockPlugin } from './plugin/EditorCodeBlockPlugin';
+import { AlertEditor } from './AlertEditor';
 
 const schema = BlockNoteSchema.create({
   blockSpecs: {
     // Adds all default blocks.
     ...defaultBlockSpecs,
     // Adds the Alert block.
-    alert: Alert,
+    alert: AlertEditor,
     codeBlock: EditorCodeBlockPlugin,
   },
 });
