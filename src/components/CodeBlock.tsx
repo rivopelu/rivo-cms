@@ -5,7 +5,7 @@ import { atelierLakesideDark } from 'react-syntax-highlighter/dist/esm/styles/hl
 
 function CodeBlock(props: IProps) {
   return (
-    <div className="relative">
+    <div className="relative ">
       <SyntaxHighlighter wrapLines language="html" style={atelierLakesideDark}>
         {props?.content || ''}
       </SyntaxHighlighter>

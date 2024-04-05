@@ -1,4 +1,6 @@
+import { Code, Snippet } from '@nextui-org/react';
 import { IResListBLockContent } from '../models/response/IResListBlockContent';
+import MainAlert from './MainAlert';
 import HeadingViewer from './plugin/HeadingViewer';
 
 function Content({ content }: { content: IResListBLockContent }) {
@@ -33,7 +35,17 @@ function Content({ content }: { content: IResListBLockContent }) {
       return (
         <div>
           {content.content.map((e, i) => (
-            <div key={i}>{e.text}</div>
+            <MainAlert type={content.props?.type} text={e.text} key={i} />
+          ))}
+        </div>
+      );
+    case 'codeBlock':
+      return (
+        <div>
+          {content.content.map((e, i) => (
+            <Snippet className="border border-slate-50/10 px-6 py-2" key={i}>
+              {e.text}
+            </Snippet>
           ))}
         </div>
       );

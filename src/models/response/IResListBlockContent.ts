@@ -11,6 +11,7 @@ export interface IBlockProps {
   backgroundColor: string;
   textAlignment: string;
   level: number;
+  type?: string;
 }
 
 export interface IBlockContent {
