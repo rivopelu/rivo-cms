@@ -12,6 +12,7 @@ export default {
       defaultExtendTheme: 'dark',
       defaultTheme: 'dark',
       themes: {
+
         dark: {
           colors: {
             danger: {
